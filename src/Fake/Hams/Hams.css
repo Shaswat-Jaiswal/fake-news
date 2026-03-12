@@ -1,0 +1,71 @@
+.A {
+  position: absolute; 
+  top: 20px; 
+  left: 20px; 
+  z-index: 20
+}
+ .A .hamsburger{
+    width: 30px;
+    display: flex;
+    flex-direction:column;
+    gap: 5px;
+    cursor: pointer;
+    margin-top: 20px;     
+}
+.A .hamsburger span {
+  height: 3px;
+  width: 70%;
+  border-radius: 4px;
+}
+.A .line1{
+    background: white;
+}
+.A .line2{
+    background: white;
+}
+.A .line3{
+    background: white;
+}
+.A .search-box{
+    margin-top: 8px;
+    border-radius: 10px;
+}
+.A .hamsburger-menu{
+    position: absolute;
+    margin-top: 30px;
+    background-color: rgb(251, 242, 242); 
+    width: 170px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+    font-weight: 100;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.A .hamsburger-menu p{
+    margin: 0;
+    cursor: pointer;
+     transition: background-color 0.2s ease;
+}
+.A .hamsburger-menu p:hover {
+  background-color: #f0f0f0;
+}
+.A .Login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.A .login-btn,
+.A .log {
+  display: block;
+  cursor: pointer;
+}
+
+.A .login-title{
+  margin-bottom: 10px;
+}

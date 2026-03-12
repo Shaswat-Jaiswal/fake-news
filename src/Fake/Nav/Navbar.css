@@ -1,0 +1,36 @@
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  background-color: black;
+  color: white;
+}
+
+.navbar .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+
+
+
+.navbar .nav-right {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navbar .nav-item {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+

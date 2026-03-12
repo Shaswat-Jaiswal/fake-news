@@ -1,0 +1,149 @@
+/* ===================== */
+/* Container */
+/* ===================== */
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+ background: #3a3f45;
+  font-family: Arial, sans-serif;
+}
+
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+.sphere {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(255, 191, 0, 0.6);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffcc70, #ff9f1c);
+  filter: blur(1px);
+  opacity: 0.85;
+  animation: float 8s ease-in-out infinite;
+}
+
+.s1 {
+  top: 10%;
+  left: 20%;
+}
+
+.s2 {
+  top: 50%;
+  left: 60%;
+  width: 260px;
+  height: 260px;
+  animation-delay: 3s;
+}
+
+.s3 {
+  top: 70%;
+  left: 15%;
+  width: 180px;
+  height: 180px;
+  animation-delay: 5s;
+}
+
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0); }
+}
+
+
+
+.login-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 30px;
+  border-radius: 20px;
+   background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+   box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+   color: white;
+  text-align: center;
+  z-index: 10;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+}
+
+
+.input-group input {
+  width: 100%;
+  padding: 12px 5px;
+  margin-bottom: 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+  color: white;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+.input-group input:focus {
+  border-bottom-color: #ffd166;
+}
+
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 18px;
+  border-radius: 10px;
+  border: none;
+ background: #1f2933;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-card button:hover {
+  box-shadow: 0 0 20px rgba(255, 209, 102, 0.6);
+  transform: scale(1.05);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.login-card {
+  animation: cardIn 0.8s ease-out;
+}
+
+
+
+.login-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-text span {
+  color: #c77dff;
+  cursor: pointer;
+}
