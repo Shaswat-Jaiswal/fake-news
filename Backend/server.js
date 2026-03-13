@@ -21,6 +21,8 @@ app.use(cors({
     "http://localhost:5173", 
     "https://fake-news-liart.vercel.app"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Explicitly allow methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Explicitly allow headers
   credentials: true,
 }));
 
