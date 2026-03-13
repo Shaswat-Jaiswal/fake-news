@@ -76,7 +76,7 @@ router.post("/analyze", async (req, res) => {
 
     // ML API
     const mlResponse = await axios.post(
-      `${ML_API_URL}/predict`,
+      `${ML_API_URL}/check`,
       { text }
     );
 
@@ -85,17 +85,12 @@ router.post("/analyze", async (req, res) => {
 const prediction = mlResponse.data.prediction;
 const confidence = mlResponse.data.confidence;
 
-const guardian = await checkGuardian(text);
+const sourceVerification = mlResponse.data.source_verification || [];
 
 if (prediction === "Real") {
-  if (guardian.found) {
-    result = `Real (Confidence: ${confidence}%) ✅ • Published in Guardian`;
-  } else {
-    result = `Real (Confidence: ${confidence}%) ⚠ • Not found in Guardian`;
-  }
+  result = `Real (Confidence: ${confidence}%)`;
 } else {
-  // ML ne Fake bola toh Guardian check ignore
-  result = `Fake (Confidence: ${confidence}%) `;
+  result = `Fake (Confidence: ${confidence}%)`;
 }
 
     console.log("📰 Final result:", result);
@@ -104,8 +99,9 @@ if (prediction === "Real") {
       result,
       prediction: mlResponse.data.prediction,
       confidence: mlResponse.data.confidence,
-      found_in_guardian: guardian.found,
-      articles: guardian.articles
+      source_verification: sourceVerification,
+      reason: mlResponse.data.reason,
+      source: mlResponse.data.source
     });
 
   } catch (error) {

@@ -6,10 +6,11 @@ from difflib import SequenceMatcher
 # DATASET PATHS
 # ===============================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../.."))
+DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../data"))
 
 FAKENEWSNET_PATH = os.path.join(DATA_DIR, "fakenewsnet_clean.csv")
 NEWS_PATH = os.path.join(DATA_DIR, "news.csv")
+BOOK1_PATH = os.path.join(DATA_DIR, "Book1.csv")
 
 # ===============================
 # LOAD DATASETS (Cache them)
@@ -39,6 +40,13 @@ def load_datasets():
             if 'text' in df_news.columns and 'label' in df_news.columns:
                 datasets.append(df_news)
                 print(f"✅ Loaded news.csv: {len(df_news)} articles")
+        
+        # Load Book1.csv
+        if os.path.exists(BOOK1_PATH):
+            df_book1 = pd.read_csv(BOOK1_PATH)
+            if 'text' in df_book1.columns and 'label' in df_book1.columns:
+                datasets.append(df_book1)
+                print(f"✅ Loaded Book1.csv: {len(df_book1)} articles")
         
         if datasets:
             _dataset_cache = pd.concat(datasets, ignore_index=True)

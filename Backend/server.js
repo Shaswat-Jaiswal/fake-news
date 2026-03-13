@@ -16,12 +16,20 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:5174", "http://localhost:5173"],
+  origin: ["http://localhost:3000", 
+    "http://localhost:5174", 
+    "http://localhost:5173", 
+    "https://fake-news-liart.vercel.app"
+  ],
   credentials: true,
 }));
 
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.status(200).send("Server is live and running! 🚀");
+});
 
 // routes
 app.use("/api/auth", authRoutes);

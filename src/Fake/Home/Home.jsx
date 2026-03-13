@@ -92,8 +92,7 @@ export const Home = () => {
               <div>
                 <p><strong>Prediction:</strong> {result.prediction}</p>
                 <p><strong>Confidence:</strong> {result.confidence}%</p>
-                {result.reason && <p><strong>Reason:</strong> {result.reason}</p>}
-                {result.source && <p><strong>Source:</strong> {result.source}</p>}
+      
               </div>
             )}
           </div>

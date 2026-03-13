@@ -179,25 +179,36 @@ def check_news():
     if not text:
         return jsonify({"error": "Text is empty"}), 400
 
-    # =========================================
+    source_verification = []
+
+    # 4️⃣ Guardian verification (check against real news sources)
+    guardian_real = guardian_strong_match(text)
+    if guardian_real:
+        source_verification.append("Published in The Guardian.")
+
+    # Check dataset match
+    dataset_result = None
     try:
         dataset_result = find_dataset_match(text)
-        
         if dataset_result["found"]:
-            prediction = "Real" if dataset_result["label"] == 1 else "Fake"
-            return jsonify({
-                "prediction": prediction,
-                "confidence": round(dataset_result["similarity"] * 100, 2),
-                "reason": f"Found in training dataset ({dataset_result['source']})",
-                "source": "dataset",
-                "similarity": dataset_result["similarity"]
-            })
+            source_verification.append("Cross-referenced with database.")
     except Exception as e:
         print(f"⚠️ Dataset match error: {str(e)}")
 
+    # If dataset found, return with dataset prediction
+    if dataset_result and dataset_result["found"]:
+        prediction = "Real" if dataset_result["label"] == 1 else "Fake"
+        return jsonify({
+            "prediction": prediction,
+            "confidence": round(dataset_result["similarity"] * 100, 2),
+            "source": "dataset",
+            "similarity": dataset_result["similarity"],
+            "source_verification": source_verification
+        })
+
     # 1️⃣ Non-news (casual statements like weather, college closure, etc.)
     if is_non_news(text):
-        return jsonify({"prediction": "Fake", "confidence": 100, "reason": "Casual/non-news statement"})
+        return jsonify({"prediction": "Fake", "confidence": 90, "reason": "Casual/non-news statement"})
 
     # 2️⃣ Fake people (unknown fictional names)
     valid = validate_person_names(text)
@@ -210,23 +221,25 @@ def check_news():
 
     # 4️⃣ Guardian verification (check against real news sources)
     guardian_real = guardian_strong_match(text)
-
-    # Guardian verification (check against real news sources)
     if guardian_real:
-        return jsonify({
+        source_verification.append("Published in The Guardian.")
+
+    # Decide prediction
+    if guardian_real:
+        response = {
             "prediction": "Real",
             "confidence": 95,
-            "reason": "Confirmed by Guardian news sources (verified source)",
-            "source": "guardian"
-        })
+            "source": "guardian",
+            "source_verification": source_verification
+        }
+    else:
+        response = {
+            "prediction": "Real",
+            "confidence": 80,
+            "source": "default"
+        }
 
-    # DEFAULT: If NOT found in dataset or Guardian -> Show as REAL
-    return jsonify({
-        "prediction": "Real",
-        "confidence": 80,
-        "reason": "Not found in known fake news databases (assumed real)",
-        "source": "default"
-    })
+    return jsonify(response)
 # ===============================
 # RUN
 # ===============================

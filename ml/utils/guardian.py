@@ -13,13 +13,14 @@ def guardian_strong_match(text: str) -> bool:
 
     try:
         # Extract first 10 words as keywords for Guardian search
-        keywords = " ".join(text.lower().split()[:10])
+        words = text.lower().split()
+        keywords = " ".join(word.strip('.,:;!?') for word in words[:10])
         
         url = "https://content.guardianapis.com/search"
         params = {
             "q": keywords,
             "api-key": GUARDIAN_API_KEY,
-            "page-size": 10  # Increased from 5 for better matching
+            "page-size": 20  # Increased from 10 for better matching
         }
 
         res = requests.get(url, params=params, timeout=10).json()
@@ -50,13 +51,9 @@ def guardian_strong_match(text: str) -> bool:
             ratio = overlap / max(len(text_words), 1)
 
             # 🔥 Strong match criteria:
-            # - At least 50% word overlap (improved from 60%)
-            # - At least 3 common words
-            if ratio >= 0.5 and overlap >= 3:
-                return True
-            
-            # OR: Very high overlap (60%+) with at least 2 matching words
-            if ratio >= 0.6 and overlap >= 2:
+            # - At least 30% word overlap (improved from 50%)
+            # - At least 2 common words
+            if ratio >= 0.3 and overlap >= 2:
                 return True
 
         return False
@@ -65,3 +62,4 @@ def guardian_strong_match(text: str) -> bool:
         print(f"⚠️ Guardian API Error: {str(e)}")
         # If Guardian API fails, don't mark as verified
         return False 
+    
