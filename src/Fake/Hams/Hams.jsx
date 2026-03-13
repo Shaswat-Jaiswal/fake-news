@@ -6,6 +6,12 @@ export const Hams = () => {
    const[menuOpen, setMenuOpen] = useState(false);
    const navigate = useNavigate();
 
+   const handleLogout = () => {
+      localStorage.removeItem("token");
+      navigate("/");
+      setMenuOpen(false);
+   };
+
 
     return(
        <div className="A">
@@ -31,7 +37,13 @@ export const Hams = () => {
                         onClick={() => {navigate("/login"); setMenuOpen(false);}}
                         >Login</span>
                       </p>
-                      <span className="log">Logout</span>
+                      <span
+              className="log"
+              style={{ cursor: "pointer" }}
+              onClick={handleLogout}
+            >
+              Logout
+            </span>
                 </div>
                 </div>
         )} 
