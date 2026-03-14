@@ -6,11 +6,11 @@ from scipy.sparse import hstack
 # ===============================
 # INTERNAL IMPORTS
 # ===============================
-from  utils.guardian import guardian_strong_match
-from ..utils.non_news import is_non_news
-from ..utils.dataset_matcher import find_dataset_match
-from ..preprocessing.text_cleaner import clean_text
-from ..utils.rules import rule_based_check, validate_person_names
+from ml.utils.guardian import guardian_strong_match
+from ml.utils.non_news import is_non_news
+from ml.utils.dataset_matcher import find_dataset_match
+from ml.preprocessing.text_cleaner import clean_text
+from ml.utils.rules import rule_based_check, validate_person_names
 
 # ===============================
 # FLASK APP
@@ -246,4 +246,4 @@ def check_news():
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5001))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=True)  # debug=True for local testing
