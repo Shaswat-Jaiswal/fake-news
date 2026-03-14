@@ -6,7 +6,7 @@ from scipy.sparse import hstack
 # ===============================
 # INTERNAL IMPORTS
 # ===============================
-from ..utils.guardian import guardian_strong_match
+from  utils.guardian import guardian_strong_match
 from ..utils.non_news import is_non_news
 from ..utils.dataset_matcher import find_dataset_match
 from ..preprocessing.text_cleaner import clean_text
