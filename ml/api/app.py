@@ -244,5 +244,6 @@ def check_news():
 # RUN
 # ===============================
 if __name__ == "__main__":
-    app.run(port=5001, debug=False)
-    
+    import os
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=False)
